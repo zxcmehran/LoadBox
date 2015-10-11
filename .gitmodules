@@ -1,0 +1,6 @@
+[submodule "webui"]
+	path = webui
+	url = https://github.com/ziahamza/webui-aria2
+[submodule "pyserver"]
+	path = pyserver
+	url = https://github.com/zxcmehran/SecurePyServer

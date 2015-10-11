@@ -1,0 +1,8 @@
+*~
+/*.pem
+/*.key
+/*.crt
+/*.cert
+/*.log
+/progress.txt
+/scripts/*.pyc
