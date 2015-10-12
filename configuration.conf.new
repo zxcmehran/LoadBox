@@ -52,6 +52,7 @@ max-tries=50
 #######################
 # Session Options
 #
+# progress.txt is also used in startup.sh file. Remember to change them both if you want to.
 input-file=progress.txt
 save-session=progress.txt
 save-session-interval=10
@@ -59,7 +60,7 @@ save-session-interval=10
 #######################
 # Logging Options
 #
-log=aria2.log
+log=errors.log
 log-level=error
 console-log-level=warn
 summary-interval=0

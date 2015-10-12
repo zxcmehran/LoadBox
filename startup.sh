@@ -16,6 +16,9 @@
 ###
 
 {
+	# Remember to change it in configuration.conf too
+	SAVEFILE="progress.txt"
+	
 	VERSION="1.0"
 	
 	if [ "$1" != "now" ]; then
@@ -34,11 +37,31 @@
 	printf "# 	http://mehran.ahadi.me/" | grep --color '.'
 	printf "###############################" | grep --color '.'
 	printf "\n\n\n"
-	
-	. $(dirname "$0")/configuration.sh
 
 	cd $(dirname "$0")
 
+	if ! [ -e "$SAVEFILE" ]; then
+		printf "Generating new savefile\n"
+		touch "$SAVEFILE"
+	fi
+	
+	if ! [ -e "configuration.sh" ]; then
+		printf "Copying new configuration.sh\n"
+		cp configuration.sh.new configuration.sh
+	fi
+	
+	if ! [ -e "configuration.conf" ]; then
+		printf "Copying new configuration.conf\n"
+		cp configuration.conf.new configuration.conf
+	fi
+	
+	if ! [ -e "scripts/configuration.py" ]; then
+		printf "Copying new scripts/configuration.py\n"
+		cp scripts/configuration.py.new scripts/configuration.py
+	fi
+
+	. $(dirname "$0")/configuration.sh
+	
 	# If Hotplug enabled
 	if [ "$DOWNLOAD_HOTPLUG" != "" ]; then
 		. sh/check-hotplug.sh
