@@ -6,3 +6,6 @@
 /*.log
 /progress.txt
 /scripts/*.pyc
+/configuration.sh
+/configuration.conf
+/scripts/configuration.py

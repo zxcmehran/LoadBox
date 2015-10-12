@@ -47,17 +47,17 @@
 	
 	if ! [ -e "configuration.sh" ]; then
 		printf "Copying new configuration.sh\n"
-		cp configuration.sh.new configuration.sh
+		cp sample-configuration.sh configuration.sh
 	fi
 	
 	if ! [ -e "configuration.conf" ]; then
 		printf "Copying new configuration.conf\n"
-		cp configuration.conf.new configuration.conf
+		cp sample-configuration.conf configuration.conf
 	fi
 	
 	if ! [ -e "scripts/configuration.py" ]; then
 		printf "Copying new scripts/configuration.py\n"
-		cp scripts/configuration.py.new scripts/configuration.py
+		cp scripts/sample-configuration.py scripts/configuration.py
 	fi
 
 	. $(dirname "$0")/configuration.sh

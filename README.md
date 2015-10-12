@@ -29,7 +29,7 @@ Then, add the following line to `/etc/rc.local` file:
 
     /home/user/LoadBox/startup.sh
 
-You can create and edit `configuration.conf`, `configuration.sh`, `scripts/configuration.py` and `webui/configuration.js` files from templates to suit you best. System will use the defaults if you omit this step.
+You can create and edit `configuration.conf`, `configuration.sh`, `scripts/configuration.py` and `webui/configuration.js` files from `sample-[filename]` templates to suit you best. System will generate the defaults if you omit this step.
 
 ## Scheduling
 
