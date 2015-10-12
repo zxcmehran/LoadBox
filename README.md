@@ -21,7 +21,10 @@ As a quick start,
 
 Clone the repo to a directory like `~/LoadBox/`:
 
-    $ git clone --recursive https://github.com/zxcmehran/LoadBox
+    $ git clone https://github.com/zxcmehran/LoadBox
+    $ cd LoadBox
+    $ git submodule init
+    $ git submodule update --depth 1
 
 Then, add the following to `/etc/rc.local` file:
 
@@ -40,6 +43,8 @@ And you can use these scripts to start/stop all download jobs:
     /home/[username]/LoadBox/scripts/stopdownloads.py
 
 It's tested on Raspbian Jessie. Some features like `rpc_secret` cannot be used on Raspbian Wheezy because of outdated `aria2` package. Versions prior `1.18.1` have a bug which cause problems with RPC secret functionality. You might want to compile a recent version of `aria2`.
+
+It's better *not* to boot directly to GUI. Booting to CLI helps you to save CPU/RAM and see console log to debug system in case of problems.
 
 ##License
 [MIT (Expat)](https://www.tldrlegal.com/l/mit) License
