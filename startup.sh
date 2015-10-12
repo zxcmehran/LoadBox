@@ -17,8 +17,12 @@
 
 {
 	VERSION="1.0"
-
-	sleep 10
+	
+	if [ "$1" != "now" ]; then
+		printf "Waiting for system to bootup. Starting Loadbox in 10 seconds.\n"
+		printf "If you are debugging, you can use \"./startup.sh now\" to start immediately.\n"
+		sleep 10	
+	fi
 
 	printf "\n\n\n"
 	printf "###############################" | grep --color '.'

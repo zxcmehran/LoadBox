@@ -12,7 +12,8 @@
 # Licensed undet MIT (Expat) License
 ###
 
-. $(dirname "$0")/../configuration.sh
+. "$(dirname "$0")"/../configuration.sh
+cd "$(dirname "$0")"/..
 
 # DIR would be mount point
 # SUBDIR would be the path relative to mount point WITH BEGINNING SLASH.
@@ -24,20 +25,21 @@
 # Add DIR1 to fstab and set as automount.
 
 
-DIR1=$NETWORK_DIR1
-SUBDIR1=$NETWORK_SUBDIR1
+DIR1="$NETWORK_DIR1"
+SUBDIR1="$NETWORK_SUBDIR1"
 
-DIR2=$NETWORK_DIR2
-SUBDIR2=$NETWORK_SUBDIR2
+DIR2="$NETWORK_DIR2"
+SUBDIR2="$NETWORK_SUBDIR2"
 
 if [ "$NETWORK_SYNC" -eq "0" ]; then
-	printf "\n***[upload]*** Uploading is disabled. Skipping.\n" | grep --color '.'
+	printf "\n"
+	printf "***[upload]*** Uploading is disabled. Skipping.\n" | grep --color '.'
 	exit 0
 fi
 
 
-TARGETDIR=$DIR1
-TARGETSUBDIR=$SUBDIR1
+TARGETDIR="$DIR1"
+TARGETSUBDIR="$SUBDIR1"
 
 while true
 do
@@ -52,14 +54,14 @@ do
 		# Change to other setting if available
 		if [ "$TARGETDIR" = "$DIR1"  ]; then
 			if [ "$DIR2" != "" ] && [ "$DIR2" != "$DIR1" ]; then
-				TARGETDIR=$DIR2
-				TARGETSUBDIR=$SUBDIR2
+				TARGETDIR="$DIR2"
+				TARGETSUBDIR="$SUBDIR2"
 			else
 				sleep $SYNCNFS_RETRY_TIMEOUT			
 			fi
 		else
-			TARGETDIR=$DIR1
-			TARGETSUBDIR=$SUBDIR1
+			TARGETDIR="$DIR1"
+			TARGETSUBDIR="$SUBDIR1"
 			sleep $SYNCNFS_RETRY_TIMEOUT
 		fi
 		
@@ -71,11 +73,11 @@ do
 	mkdir "$TARGETDIR$TARGETSUBDIR" >/dev/null 2>&1
 
 	# Get torrent directory
-	FNAME=$(./scripts/getdir.py $1)
+	FNAME="$(./scripts/getdir.py "$1")"
 	if [ "$?" -ne 0 ]; then
 		# Not torrent, simple http download. Get file name
 		printf "\n%s" "$FNAME"
-		FNAME=$(./scripts/getfile.py $1)
+		FNAME="$(./scripts/getfile.py "$1")"
 		ERR="$?"
 		if [ "$ERR" -ne 0 ]; then
 			printf "\n%s" "$FNAME"

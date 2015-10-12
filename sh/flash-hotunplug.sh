@@ -12,15 +12,15 @@
 # Licensed undet MIT (Expat) License
 ###
 
-. $(dirname "$0")/../configuration.sh
+. "$(dirname "$0")"/../configuration.sh
 if [ "$DOWNLOAD_HOTPLUG" != "" ]; then
-	cd $(dirname "$0")/..
+	cd "$(dirname "$0")"/..
 	echo "***[hotplug]*** Plugged out. Killing processes that are using it's mount point." | grep --color '.'
 	touch usbunreadsucc
 	
-	fuser -km $DOWNLOAD_HOTPLUG
+	fuser -km "$DOWNLOAD_HOTPLUG"
 	killall aria2c
 	# wait till aria2c shutdown
 	sleep 5
-	umount $DOWNLOAD_HOTPLUG
+	umount "$DOWNLOAD_HOTPLUG"
 fi

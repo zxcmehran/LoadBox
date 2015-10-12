@@ -16,7 +16,7 @@
 	while true && [ "$DOWNLOAD_DIR_NFS" != "" ]
 	do
 		REMOUNTED="0"
-		ls $DOWNLOAD_DIR_NFS >/dev/null 2>&1
+		ls "$DOWNLOAD_DIR_NFS" >/dev/null 2>&1
 		AVAILABLE="$?"
 		# To ensure that it's on a different mounted device
 		if  [ `stat -fc%t:%T "$DOWNLOAD_DIR_NFS"` == `stat -fc%t:%T "$DOWNLOAD_DIR_NFS/.."` ]; then
@@ -33,8 +33,8 @@
 				sleep $DIRECTNFS_RETRY_TIMEOUT
 				echo "***[network-mount]*** NFS Remounting..." | grep --color '.'
 				
-				mount $DOWNLOAD_DIR_NFS >/dev/null 2>&1
-				ls $DOWNLOAD_DIR_NFS >/dev/null 2>&1
+				mount "$DOWNLOAD_DIR_NFS" >/dev/null 2>&1
+				ls "$DOWNLOAD_DIR_NFS" >/dev/null 2>&1
 				AVAILABLE="$?"
 				if  [ `stat -fc%t:%T "$DOWNLOAD_DIR_NFS"` == `stat -fc%t:%T "$DOWNLOAD_DIR_NFS/.."` ]; then
 					# IT'S NOT MOUNTED!

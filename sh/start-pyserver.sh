@@ -13,12 +13,12 @@
 ###
 
 {
-	. $(dirname "$0")/../configuration.sh
+	. "$(dirname "$0")"/../configuration.sh
 
-	cd $(dirname "$0")/..
+	cd "$(dirname "$0")"/..
 
 	echo "Starting Web Server." | grep --color '.'
-	sudo -u $HTTP_WORKING_USER pyserver/SecureHTTPServer.py webui $WEBPORT $WEBUSER:$WEBPASS $CERTFILE $KEYFILE
+	sudo -u $HTTP_WORKING_USER pyserver/SecureHTTPServer.py webui "$WEBPORT" "$WEBUSER:$WEBPASS" "$(readlink -e "$CERTFILE")" "$(readlink -e "$KEYFILE")"
 
 	echo "Error: Web Server stopped!" | grep --color '.'
 } &

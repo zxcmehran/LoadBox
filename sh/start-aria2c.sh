@@ -13,19 +13,19 @@
 ###
 
 {
-	. $(dirname "$0")/../configuration.sh
+	. "$(dirname "$0")"/../configuration.sh
 
-	cd $(dirname "$0")/..
+	cd "$(dirname "$0")"/..
 
 	echo "Starting aria2c daemon." | grep --color '.'
 
 	if [ "$CERTFILE" == "" ]; then
-		sudo -u $ARIA2C_WORKING_USER aria2c --conf=aria2.conf --dir=$DOWNLOAD_DIR --on-download-complete=sh/upload.sh 
+		sudo -u $ARIA2C_WORKING_USER aria2c --conf=aria2.conf --dir="$(readlink -m "$DOWNLOAD_DIR")" --on-download-complete=sh/upload.sh 
 	else
 		if [ "$KEYFILE" == "" ]; then
-			sudo -u $ARIA2C_WORKING_USER aria2c --conf=aria2.conf --dir=$DOWNLOAD_DIR --on-download-complete=sh/upload.sh --rpc-certificate=$CERTFILE --rpc-secure 
+			sudo -u $ARIA2C_WORKING_USER aria2c --conf=aria2.conf --dir="$(readlink -m "$DOWNLOAD_DIR")" --on-download-complete=sh/upload.sh --rpc-certificate="$(readlink -m "$CERTFILE")" --rpc-secure 
 		else
-			sudo -u $ARIA2C_WORKING_USER aria2c --conf=aria2.conf --dir=$DOWNLOAD_DIR --on-download-complete=sh/upload.sh --rpc-certificate=$CERTFILE --rpc-private-key=$KEYFILE --rpc-secure 
+			sudo -u $ARIA2C_WORKING_USER aria2c --conf=aria2.conf --dir="$(readlink -m "$DOWNLOAD_DIR")" --on-download-complete=sh/upload.sh --rpc-certificate="$(readlink -m "$CERTFILE")" --rpc-private-key="$(readlink -m "$KEYFILE")" --rpc-secure 
 		fi
 	fi
 

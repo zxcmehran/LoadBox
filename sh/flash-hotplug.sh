@@ -12,14 +12,14 @@
 # Licensed undet MIT (Expat) License
 ###
 
-. $(dirname "$0")/../configuration.sh
+. "$(dirname "$0")"/../configuration.sh
 if [ "$DOWNLOAD_HOTPLUG" != "" ]; then
 	echo "***[hotplug]*** Plugged in." | grep --color '.'
-	cd $(dirname "$0")/..
+	cd "$(dirname "$0")"/..
 	touch usbreadsucc
 	
-	mount $1 $DOWNLOAD_HOTPLUG
-	ls $DOWNLOAD_HOTPLUG >/dev/null 2>&1
+	mount "$1" "$DOWNLOAD_HOTPLUG"
+	ls "$DOWNLOAD_HOTPLUG" >/dev/null 2>&1
 	
 	if  [ "$?" -eq 0 ] && [ `stat -fc%t:%T "$DOWNLOAD_HOTPLUG"` != `stat -fc%t:%T "$DOWNLOAD_HOTPLUG/.."` ]; then
 		if ps ax | grep -v grep | grep aria2c > /dev/null
