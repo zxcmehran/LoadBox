@@ -1,53 +1,24 @@
 # LoadBox
 ## A Downloader Toolset for Unix-Based Systems
 
-LoadBox is a reliable download toolset for headless and embedded unix-based systems like Raspberry Pi, Beaglebone or Virtual boxes.
+LoadBox is a set of scripts crafted to help people set up a secure automated downloader system with unique features. 
 
-This toolset is designed with some particular situations in mind. Please DO NOT use it on a PC system.
+The aim is to create a *reliable*, *controllable*, *always-available* and *secure* solution for setting up an automated downloader station without being worried of storage limitations.
 
-It has numerous features including Torrents support, Local Network Storages, Network Push, Flash Disk Hotplugging, Protected Web Interface with HTTPS and Authentication and Download Resume support even in case of accidental power loss or disk unplug.
+Its mainly designed to run on [Raspberry Pi](http://www.raspberrypi.org/), but it can be used on other similar unix-based systems and even virtual boxes. The solution is not limited to a specific architecture and can run on all variants of x86, ARM, etc.
 
-**TODO:** Documentation! There's a lot to tell.
+It has numerous features including Torrents support, Scheduling, Network Sync, Downloading to Network Target, Flash Disk Hotplugging, Protected Web Interface with HTTPS and Authentication and Download Resume support even in case of accidental power loss or disk unplug, unless the server denies.
 
-Please note, Use it only on isolated environments like virtual boxes or development boards for testing. Although, it's not expected to observe aggresive behaviors.
+Read More at wiki: [What is LoadBox?](https://github.com/zxcmehran/LoadBox/wiki)
 
-## Usage
-**Note:** Remember, It's a work in progress. Read above paragraphs if you skipped.
-
-As a quick start,
-
-    $ sudo apt-get install aria2c
-
-Clone the repo to a directory like `~/LoadBox/`:
-
-    $ git clone https://github.com/zxcmehran/LoadBox
-    $ cd LoadBox
-    $ git submodule init
-    $ git submodule update --depth 1
-
-Then, add the following line to `/etc/rc.local` file:
-
-    /home/user/LoadBox/startup.sh
-
-You can create and edit `configuration.conf`, `configuration.sh`, `scripts/configuration.py` and `webui/configuration.js` files from `sample-[filename]` templates to suit you best. System will generate the defaults if you omit this step.
-
-## Scheduling
-
-To schedule commands, update crontab file using `sudo crontab -e` and enter following lines at the end of the file. It will limit download speed at 10:00AM and remove limitations after midnight at 2:30AM.
-
-    30 02 * * * /home/[username]/LoadBox/scripts/unlimitdownloads.py
-    00 10 * * * /home/[username]/LoadBox/scripts/limitdownloads.py
-
-And you can use these scripts to start/stop all download jobs:
-
-    /home/[username]/LoadBox/scripts/startdownloads.py
-    /home/[username]/LoadBox/scripts/stopdownloads.py
-
-## Notes
-
-It's tested on Raspbian Jessie. Some features like `rpc_secret` cannot be used on Raspbian Wheezy because of outdated `aria2` package. Versions prior `1.18.1` have a bug which cause problems with RPC secret functionality. You might want to compile a recent version of `aria2`.
-
-It's better *not* to boot directly to GUI. Booting to CLI helps you to save CPU/RAM and see console log to debug system in case of problems.
+## Get Started
+1. [Installing](https://github.com/zxcmehran/LoadBox/wiki/1.-Installing)
+2. [Configuration Reference](https://github.com/zxcmehran/LoadBox/wiki/2.-Configuration-Reference)
+3. [Security](https://github.com/zxcmehran/LoadBox/wiki/3.-Security)
+4. [Flash Disk Hotplug](https://github.com/zxcmehran/LoadBox/wiki/4.-Flash-Disk-Hotplug)
+5. [Network Target](https://github.com/zxcmehran/LoadBox/wiki/5.-Network-Target)
+6. [Network Sync](https://github.com/zxcmehran/LoadBox/wiki/6.-Network-Sync)
+7. [Scheduling](https://github.com/zxcmehran/LoadBox/wiki/7.-Scheduling)
 
 ##License
 [MIT (Expat)](https://www.tldrlegal.com/l/mit) License

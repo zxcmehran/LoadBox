@@ -12,11 +12,11 @@
 # Licensed undet MIT (Expat) License
 ###
 
-# User ID to use for aria2c
+# User to use for aria2c
 # Use root if network storages you use are not mountable by user although it's NOT RECOMMENDED.
 ARIA2C_WORKING_USER="pi"
 
-# User ID to use for webserver
+# User to use for webserver
 # Use it if you want to use a port < 1024 although it's NOT RECOMMENDED.
 HTTP_WORKING_USER="pi"
 
