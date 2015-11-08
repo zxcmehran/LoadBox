@@ -12,7 +12,7 @@ Licensed undet MIT (Expat) License
 # Remember, remove auto-generated file "configuration.pyc" after editing this file to make changes take effect.
 
 def conf_address():
-	return '0.0.0.0'; # Relative to System itself
+	return '0.0.0.0'; # Relative to System itself. Use your certificate's Fully Qualified Domain Name if you are using HTTPS.
 
 def conf_port():
 	return '6800';
@@ -43,5 +43,8 @@ def conf_auth_userpass():
 
 
 def conf_cron_maxspeed():
-	return '32K'; # Used by speed limiter script
+	return '32K'; # Max Download Speed. Used by speed limiter script
+
+def conf_cron_maxupspeed():
+	return '10K'; # Max Upload Speed. Used by speed limiter script
 
