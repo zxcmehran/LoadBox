@@ -28,7 +28,7 @@
 			echo "***[network-mount]*** NFS not available. Killing aria2c daemon." | grep --color '.'
 			REMOUNTED="1"
 			killall aria2c
-			umount "$DOWNLOAD_DIR_NFS"
+			umount "$DOWNLOAD_DIR_NFS" >/dev/null 2>&1
 			while [ "$AVAILABLE" != "0" ]
 			do
 				sleep $DIRECTNFS_RETRY_TIMEOUT
@@ -40,7 +40,7 @@
 				if  [ `stat -fc%t:%T "$DOWNLOAD_DIR_NFS"` == `stat -fc%t:%T "$DOWNLOAD_DIR_NFS/.."` ]; then
 					# IT'S NOT MOUNTED!
 					AVAILABLE="1"
-					umount "$DOWNLOAD_DIR_NFS"
+					umount "$DOWNLOAD_DIR_NFS" >/dev/null 2>&1
 				fi
 			done
 		else
