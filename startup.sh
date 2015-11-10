@@ -11,7 +11,7 @@
 #
 # Licensed undet MIT (Expat) License
 # 
-# Version: 1.0
+# Version: 1.1
 # 
 ###
 
@@ -19,7 +19,7 @@
 	# Remember to change it in configuration.conf too
 	SAVEFILE="progress.txt"
 	
-	VERSION="1.0"
+	VERSION="1.1"
 	
 	if [ "$1" != "now" ]; then
 		printf "Waiting for system to bootup. Starting Loadbox in 10 seconds.\n"
