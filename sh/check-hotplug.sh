@@ -18,7 +18,7 @@
 	WAITING="0"
 	while true
 	do
-		DEVICE=$(ls /dev/sd* | grep -o '/dev/sd[a-z]1' | sed -n '1 p')
+		DEVICE=$(ls /dev/sd* 2> /dev/null | grep -o '/dev/sd[a-z]1' | sed -n '1 p')
 	
 		if [ "$DEVICE" != "" ] && [ "$PLUGFOUND" == "0" ]; then
 			PLUGFOUND="1"

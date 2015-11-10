@@ -18,7 +18,7 @@ if [ "$DOWNLOAD_HOTPLUG" != "" ]; then
 	cd "$(dirname "$0")"/..
 	touch usbreadsucc
 	
-	mount "$1" "$DOWNLOAD_HOTPLUG"
+	mount "$1" "$DOWNLOAD_HOTPLUG" -o uid=$(id -u $ARIA2C_WORKING_USER),gid=$(id -g $ARIA2C_WORKING_USER),utf8,dmask=027,fmask=137
 	ls "$DOWNLOAD_HOTPLUG" >/dev/null 2>&1
 	
 	if  [ "$?" -eq 0 ] && [ `stat -fc%t:%T "$DOWNLOAD_HOTPLUG"` != `stat -fc%t:%T "$DOWNLOAD_HOTPLUG/.."` ]; then
