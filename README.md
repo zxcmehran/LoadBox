@@ -1,3 +1,4 @@
+![Loadbox Logo](http://static.ahadi.me/projects/loadbox/loadbox-logo-small.jpg)
 # LoadBox
 ## A Downloader Toolset for Unix-Based Systems
 
@@ -19,6 +20,8 @@ Read More at wiki: [What is LoadBox?](https://github.com/zxcmehran/LoadBox/wiki)
 5. [Network Target](https://github.com/zxcmehran/LoadBox/wiki/5.-Network-Target)
 6. [Network Sync](https://github.com/zxcmehran/LoadBox/wiki/6.-Network-Sync)
 7. [Scheduling](https://github.com/zxcmehran/LoadBox/wiki/7.-Scheduling)
+
+[Persian Introduction | معرفی به زبان پارسی](https://mehran.ahadi.me/blog/1394/09/loadbox-downloader-introduction/)
 
 ##License
 [MIT (Expat)](https://www.tldrlegal.com/l/mit) License
