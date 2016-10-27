@@ -45,7 +45,8 @@ if [ "$?" -ne 0 ]; then
 fi
 
 if [ "$IFTTT_MAKER_KEY" != "" ]; then
-	curl -X POST -H "Content-Type: application/json" -d "{\"value1\":\"Downloading $FNAME completed.\"}" https://maker.ifttt.com/trigger/$IFTTT_MAKER_EVENT/with/key/$IFTTT_MAKER_KEY
+	FBASENAME="$(basename "$FNAME")"
+	curl -X POST -H "Content-Type: application/json" -d "{\"value1\":\"Downloading $FBASENAME completed.\"}" https://maker.ifttt.com/trigger/$IFTTT_MAKER_EVENT/with/key/$IFTTT_MAKER_KEY
 fi
 
 if [ "$NETWORK_SYNC" -eq "0" ]; then
