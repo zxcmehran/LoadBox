@@ -24,19 +24,35 @@ cd "$(dirname "$0")"/..
 # You can define two locations on two network devices. DIR2 will be the fallback when DIR1 is not available.
 # Add DIR1 to fstab and set as automount.
 
-
 DIR1="$NETWORK_DIR1"
 SUBDIR1="$NETWORK_SUBDIR1"
 
 DIR2="$NETWORK_DIR2"
 SUBDIR2="$NETWORK_SUBDIR2"
 
+# Get torrent directory
+FNAME="$(./scripts/getdir.py "$1")"
+if [ "$?" -ne 0 ]; then
+	# Not torrent, simple http download. Get file name
+	printf "\n%s" "$FNAME"
+	FNAME="$(./scripts/getfile.py "$1")"
+	ERR="$?"
+	if [ "$ERR" -ne 0 ]; then
+		printf "\n%s" "$FNAME"
+		printf "\nInvalid response. Error code %s\n" "$ERR"
+		exit
+	fi
+fi
+
+if [ "$IFTTT_MAKER_KEY" != "" ]; then
+	curl -X POST -H "Content-Type: application/json" -d "{\"value1\":\"Downloading $FNAME completed.\"}" https://maker.ifttt.com/trigger/$IFTTT_MAKER_EVENT/with/key/$IFTTT_MAKER_KEY
+fi
+
 if [ "$NETWORK_SYNC" -eq "0" ]; then
 	printf "\n"
 	printf "***[upload]*** Uploading is disabled. Skipping.\n" | grep --color '.'
 	exit 0
 fi
-
 
 TARGETDIR="$DIR1"
 TARGETSUBDIR="$SUBDIR1"
@@ -72,19 +88,6 @@ do
 
 	mkdir "$TARGETDIR$TARGETSUBDIR" >/dev/null 2>&1
 
-	# Get torrent directory
-	FNAME="$(./scripts/getdir.py "$1")"
-	if [ "$?" -ne 0 ]; then
-		# Not torrent, simple http download. Get file name
-		printf "\n%s" "$FNAME"
-		FNAME="$(./scripts/getfile.py "$1")"
-		ERR="$?"
-		if [ "$ERR" -ne 0 ]; then
-			printf "\n%s" "$FNAME"
-			printf "\nInvalid response. Error code %s\n" "$ERR"
-			exit
-		fi
-	fi
 	printf "\n"
 	printf "***[upload]*** Started copying \"%s\"..." "$FNAME" | grep --color '.'
 	printf "***[upload]*** Destination \"%s\"..." "$TARGETDIR$TARGETSUBDIR" | grep --color '.'

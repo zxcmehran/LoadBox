@@ -66,3 +66,9 @@ DIRECTNFS_CHECK_INTERVAL=10
 
 # Time interval to check if Hotplug flash storage location is mounted and accessible
 HOTPLUG_CHECK_INTERVAL=10
+
+# IFTTT Maker key for push notifications.
+IFTTT_MAKER_KEY=""
+
+# IFTTT Maker Event name. Useful if you're running multiple LoadBox instances with a single IFTTT account.
+IFTTT_MAKER_EVENT="loadbox_notification"

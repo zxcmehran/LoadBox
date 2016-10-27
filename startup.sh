@@ -19,7 +19,7 @@
 	# Remember to change it in configuration.conf too
 	SAVEFILE="progress.txt"
 	
-	VERSION="1.1"
+	VERSION="1.2"
 	
 	if [ "$1" != "now" ]; then
 		printf "Waiting for system to bootup. Starting Loadbox in 10 seconds.\n"
@@ -62,6 +62,10 @@
 
 	. $(dirname "$0")/configuration.sh
 	
+	if [ "$IFTTT_MAKER_KEY" != "" ]; then
+		curl -X POST -H "Content-Type: application/json" -d "{\"value1\":\"LoadBox Started up.\"}" https://maker.ifttt.com/trigger/$IFTTT_MAKER_EVENT/with/key/$IFTTT_MAKER_KEY
+	fi
+
 	# If Hotplug enabled
 	if [ "$DOWNLOAD_HOTPLUG" != "" ]; then
 		. sh/check-hotplug.sh
