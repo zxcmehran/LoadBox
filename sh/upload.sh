@@ -46,7 +46,7 @@ do
 	mount "$TARGETDIR" >/dev/null 2>&1
 	ls "$TARGETDIR" >/dev/null 2>&1
 	# If not accessible
-	while [ "$?" -ne 0 ] || [ `stat -fc%t:%T "$TARGETDIR"` == `stat -fc%t:%T "$TARGETDIR/.."` ]
+	while [ "$?" -ne 0 ] || ! mountpoint -q -- "$TARGETDIR";
 	do
 		printf "\n"
 		printf "***[upload]*** NFS not available. Waiting... (%s)" "$SYNCNFS_RETRY_TIMEOUT secs" | grep --color '.'

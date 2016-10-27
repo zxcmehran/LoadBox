@@ -33,11 +33,8 @@ if [ "$DOWNLOAD_HOTPLUG" != "" ]; then
 	if  [ "$?" -eq 0 ] && mountpoint -q -- "$DOWNLOAD_HOTPLUG"; then
 		echo "***[hotplug]*** Mounting done." | grep --color '.'
 
-		if ps ax | grep -v grep | grep aria2c > /dev/null
+		if ! ps ax | grep -v grep | grep aria2c > /dev/null
 		then
-			echo "***[hotplug]*** Resuming downloads." | grep --color '.'
-			scripts/startdownloads.py
-		else
 			echo "***[hotplug]*** Starting aria2c daemon." | grep --color '.'
 			sh/start-aria2c.sh
 		fi

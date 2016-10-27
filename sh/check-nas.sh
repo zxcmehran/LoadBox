@@ -19,7 +19,7 @@
 		ls "$DOWNLOAD_DIR_NFS" >/dev/null 2>&1
 		AVAILABLE="$?"
 		# To ensure that it's on a different mounted device
-		if  [ `stat -fc%t:%T "$DOWNLOAD_DIR_NFS"` == `stat -fc%t:%T "$DOWNLOAD_DIR_NFS/.."` ]; then
+		if ! mountpoint -q -- "$DOWNLOAD_DIR_NFS"; then
 			# IT'S NOT MOUNTED!
 			AVAILABLE="1"
 		fi
@@ -37,7 +37,7 @@
 				mount "$DOWNLOAD_DIR_NFS" >/dev/null 2>&1
 				ls "$DOWNLOAD_DIR_NFS" >/dev/null 2>&1
 				AVAILABLE="$?"
-				if  [ `stat -fc%t:%T "$DOWNLOAD_DIR_NFS"` == `stat -fc%t:%T "$DOWNLOAD_DIR_NFS/.."` ]; then
+				if  ! mountpoint -q -- "$DOWNLOAD_DIR_NFS"; then
 					# IT'S NOT MOUNTED!
 					AVAILABLE="1"
 					umount "$DOWNLOAD_DIR_NFS" >/dev/null 2>&1
