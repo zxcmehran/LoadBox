@@ -32,6 +32,6 @@ if [ "$IFTTT_MAKER_KEY" != "" ]; then
 	fi
 
 	DLERR="$(./scripts/geterror.py "$1")"
-	FBASENAME="$(basename "$FNAME")"
+	FBASENAME="$(basename $FNAME)"
 	curl -X POST -H "Content-Type: application/json" -d "{\"value1\":\"Downloading $FBASENAME failed. Error: $DLERR\"}" https://maker.ifttt.com/trigger/$IFTTT_MAKER_EVENT/with/key/$IFTTT_MAKER_KEY
 fi
