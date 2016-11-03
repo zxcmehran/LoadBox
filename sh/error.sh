@@ -17,18 +17,13 @@ cd "$(dirname "$0")"/..
 
 if [ "$IFTTT_MAKER_KEY" != "" ]; then
 
-	# Get torrent directory
-	FNAME="$(./scripts/getdir.py "$1")"
-	if [ "$?" -ne 0 ]; then
-		# Not torrent, simple http download. Get file name
+	# Get downloaded file(s) address on disk
+	FNAME="$(./scripts/getfile.py "$1")"
+	ERR="$?"
+	if [ "$ERR" -ne 0 ]; then
 		printf "\n%s" "$FNAME"
-		FNAME="$(./scripts/getfile.py "$1")"
-		ERR="$?"
-		if [ "$ERR" -ne 0 ]; then
-			printf "\n%s" "$FNAME"
-			printf "\nInvalid response. Error code %s\n" "$ERR"
-			exit
-		fi
+		printf "\nInvalid response. Error code %s\n" "$ERR"
+		exit
 	fi
 
 	DLERR="$(./scripts/geterror.py "$1")"

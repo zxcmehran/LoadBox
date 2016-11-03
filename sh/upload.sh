@@ -30,18 +30,13 @@ SUBDIR1="$NETWORK_SUBDIR1"
 DIR2="$NETWORK_DIR2"
 SUBDIR2="$NETWORK_SUBDIR2"
 
-# Get torrent directory
-FNAME="$(./scripts/getdir.py "$1")"
-if [ "$?" -ne 0 ]; then
-	# Not torrent, simple http download. Get file name
+# Get downloaded file(s) address on disk
+FNAME="$(./scripts/getfile.py "$1")"
+ERR="$?"
+if [ "$ERR" -ne 0 ]; then
 	printf "\n%s" "$FNAME"
-	FNAME="$(./scripts/getfile.py "$1")"
-	ERR="$?"
-	if [ "$ERR" -ne 0 ]; then
-		printf "\n%s" "$FNAME"
-		printf "\nInvalid response. Error code %s\n" "$ERR"
-		exit
-	fi
+	printf "\nInvalid response. Error code %s\n" "$ERR"
+	exit
 fi
 
 if [ "$IFTTT_MAKER_KEY" != "" ]; then

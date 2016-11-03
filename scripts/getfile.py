@@ -15,13 +15,6 @@ import xmlrpclib
 import sys
 import configuration as c
 import socket
-
-if len(sys.argv) < 3 :
-	filenum = 0
-else:
-	filenum = int(sys.argv[2])
-
-
 try:
 	gid = sys.argv[1]
 except IndexError:
@@ -33,20 +26,28 @@ try:
 	s = xmlrpclib.ServerProxy(c.conf_protocol()+c.conf_auth_userpass()+c.conf_address()+':'+c.conf_port()+'/rpc')
 
 	if c.conf_auth_token() != '' :
-		files = s.aria2.getFiles(c.conf_auth_token(), gid)
+		files = s.aria2.tellStatus(c.conf_auth_token(), gid)
 	else:
-		files = s.aria2.getFiles(gid)
+		files = s.aria2.tellStatus(gid)
 
-	print files[filenum]['path']
+	relpath = files['files'][0]['path'][len(files['dir'])+1:]
+
+	if(relpath.find('/') == -1):
+		# If it's a single file situation
+		print files['dir']+'/'+relpath
+	else:
+		# If it's a multiple file situation
+		pardir = relpath[0:relpath.index('/')]
+		print(files['dir']+'/'+pardir)
+
 	sys.exit(0)
 
 except xmlrpclib.Fault, e:
 	print 'Server responded with an error: %s' % e
 	sys.exit(2)
-
-except IndexError, e:
-	print 'File number out of range: %s' % filenum
-	sys.exit(3)
+except KeyError, e:
+	print 'Invalid response.'
+	sys.exit(4)
 except socket.error, e:
 	print 'Socket Error: %s' % e
 	sys.exit(5)
