@@ -36,7 +36,7 @@ ERR="$?"
 if [ "$ERR" -ne 0 ]; then
 	printf "\n%s" "$FNAME"
 	printf "\nInvalid response. Error code %s\n" "$ERR"
-	exit
+	exit 0
 fi
 
 if [ "$IFTTT_MAKER_KEY" != "" ]; then
@@ -50,16 +50,34 @@ if [ "$NETWORK_SYNC" -eq "0" ]; then
 	exit 0
 fi
 
+if [ ! -e "$FNAME" ]; then
+	printf "\n"
+	printf "***[upload]*** File not found. Skipping.\n" | grep --color '.'
+	exit 0
+fi
+
 TARGETDIR="$DIR1"
 TARGETSUBDIR="$SUBDIR1"
 
 while true
 do
+	if [ ! -e "$FNAME" ]; then
+		printf "\n"
+		printf "***[upload]*** File not found. Skipping.\n" | grep --color '.'
+		exit 0
+	fi
+
 	mount "$TARGETDIR" >/dev/null 2>&1
 	ls "$TARGETDIR" >/dev/null 2>&1
 	# If not accessible
 	while [ "$?" -ne 0 ] || ! mountpoint -q -- "$TARGETDIR";
 	do
+		if [ ! -e "$FNAME" ]; then
+			printf "\n"
+			printf "***[upload]*** File not found. Skipping.\n" | grep --color '.'
+			exit 0
+		fi
+
 		printf "\n"
 		printf "***[upload]*** NFS not available. Waiting... (%s)" "$SYNCNFS_RETRY_TIMEOUT secs" | grep --color '.'
 		

@@ -30,6 +30,10 @@ try:
 	else:
 		files = s.aria2.tellStatus(gid)
 
+	if 'followedBy' in files:
+		print 'It\'s a metalink or torrent descriptor file. Skipping.';
+		sys.exit(7);
+
 	relpath = files['files'][0]['path'][len(files['dir'])+1:]
 
 	if(relpath.find('/') == -1):
