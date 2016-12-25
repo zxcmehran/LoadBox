@@ -61,14 +61,17 @@ TARGETSUBDIR="$SUBDIR1"
 
 while true
 do
+
+	FIRSTTIME=1
+
 	if [ ! -e "$FNAME" ]; then
 		printf "\n"
 		printf "***[upload]*** File not found. Skipping.\n" | grep --color '.'
 		exit 0
 	fi
 
-	mount "$TARGETDIR" >/dev/null 2>&1
 	ls "$TARGETDIR" >/dev/null 2>&1
+
 	# If not accessible
 	while [ "$?" -ne 0 ] || ! mountpoint -q -- "$TARGETDIR";
 	do
@@ -80,22 +83,28 @@ do
 
 		printf "\n"
 		printf "***[upload]*** NFS not available. Waiting... (%s)" "$SYNCNFS_RETRY_TIMEOUT secs" | grep --color '.'
-		
-		# Change to other setting if available
-		if [ "$TARGETDIR" = "$DIR1"  ]; then
-			if [ "$DIR2" != "" ] && [ "$DIR2" != "$DIR1" ]; then
-				TARGETDIR="$DIR2"
-				TARGETSUBDIR="$SUBDIR2"
+
+		if [ "$FIRSTTIME" -ne 1 ]; then		
+			# Change to other setting if available
+			if [ "$TARGETDIR" = "$DIR1"  ]; then
+				if [ "$DIR2" != "" ] && [ "$DIR2" != "$DIR1" ]; then
+					TARGETDIR="$DIR2"
+					TARGETSUBDIR="$SUBDIR2"		
+				fi
 			else
-				sleep $SYNCNFS_RETRY_TIMEOUT			
+				TARGETDIR="$DIR1"
+				TARGETSUBDIR="$SUBDIR1"
 			fi
-		else
-			TARGETDIR="$DIR1"
-			TARGETSUBDIR="$SUBDIR1"
+
 			sleep $SYNCNFS_RETRY_TIMEOUT
+		else
+			# Retry the same mount point again.
+			FIRSTTIME=0
 		fi
 		
+		
 		printf "\n***[upload]*** NFS Remounting..." | grep --color '.'
+		umount "$TARGETDIR" >/dev/null 2>&1
 		mount "$TARGETDIR" >/dev/null 2>&1
 		ls "$TARGETDIR" >/dev/null 2>&1
 	done
