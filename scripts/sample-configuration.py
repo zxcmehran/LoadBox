@@ -48,3 +48,9 @@ def conf_cron_maxspeed():
 def conf_cron_maxupspeed():
 	return '10K'; # Max Upload Speed. Used by speed limiter script
 
+def conf_cron_unlimited_maxspeed():
+	return '0'; # In case you want speed unlimiter script to have a maximum download amount! 
+
+def conf_cron_unlimited_maxupspeed():
+	return '0'; # In case you want speed unlimiter script to have a maximum upload amount! 
+
