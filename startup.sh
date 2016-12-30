@@ -64,6 +64,7 @@
 	
 	if [ "$IFTTT_MAKER_KEY" != "" ]; then
 		curl -X POST -H "Content-Type: application/json" -d "{\"value1\":\"LoadBox Started up.\"}" https://maker.ifttt.com/trigger/$IFTTT_MAKER_EVENT/with/key/$IFTTT_MAKER_KEY
+		printf "\n"
 	fi
 
 	# If Hotplug enabled
