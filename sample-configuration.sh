@@ -31,6 +31,9 @@ WEBPASS=""
 # If you want HTTPS enabled, Specify certificate and key file.
 CERTFILE=""
 KEYFILE=""
+# Use below values if you're going to use auto renewal
+#CERTFILE="cert.pem"
+#KEYFILE="cert.key"
 
 # Download Directory
 # If you are using hotplug functionality, it should be on hotplug mount directory.
@@ -72,3 +75,14 @@ IFTTT_MAKER_KEY=""
 
 # IFTTT Maker Event name. Useful if you're running multiple LoadBox instances with a single IFTTT account.
 IFTTT_MAKER_EVENT="loadbox_notification"
+
+# Should start a standalone webserver on port 80 for certificate renewal? (In case you DON'T HAVE a webserver running on 80 currently.)
+CERT_RENEW_START_80_WEBSERVER="1"
+
+# Used to issue certificate. Also used to get certificate from path /etc/letsencrypt/live/[MY.HOST.EXAMPLE.COM]/fullchain.pem
+# Example: myhost.mydomain.com
+CERT_RENEW_HOSTNAME=""
+
+# In case you HAVE a webserver running on port 80 currently, specify it's webroot path.
+# Example: /var/www/myhost
+CERT_RENEW_WEBROOT=""

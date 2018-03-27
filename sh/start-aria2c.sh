@@ -20,14 +20,20 @@
 	echo "Starting aria2c daemon." | grep --color '.'
 
 	if [ "$CERTFILE" == "" ]; then
-		sudo -u $ARIA2C_WORKING_USER aria2c --conf=configuration.conf --dir="$(readlink -m "$DOWNLOAD_DIR")" --on-download-complete=sh/upload.sh --on-download-error=sh/error.sh
+		sudo -u $ARIA2C_WORKING_USER aria2c --conf=configuration.conf --dir="$(readlink -m "$DOWNLOAD_DIR")" --on-download-complete=sh/upload.sh --on-download-error=sh/error.sh &
 	else
 		if [ "$KEYFILE" == "" ]; then
-			sudo -u $ARIA2C_WORKING_USER aria2c --conf=configuration.conf --dir="$(readlink -m "$DOWNLOAD_DIR")" --on-download-complete=sh/upload.sh --on-download-error=sh/error.sh --rpc-certificate="$(readlink -m "$CERTFILE")" --rpc-secure 
+			sudo -u $ARIA2C_WORKING_USER aria2c --conf=configuration.conf --dir="$(readlink -m "$DOWNLOAD_DIR")" --on-download-complete=sh/upload.sh --on-download-error=sh/error.sh --rpc-certificate="$(readlink -m "$CERTFILE")" --rpc-secure &
 		else
-			sudo -u $ARIA2C_WORKING_USER aria2c --conf=configuration.conf --dir="$(readlink -m "$DOWNLOAD_DIR")" --on-download-complete=sh/upload.sh --on-download-error=sh/error.sh --rpc-certificate="$(readlink -m "$CERTFILE")" --rpc-private-key="$(readlink -m "$KEYFILE")" --rpc-secure 
+			sudo -u $ARIA2C_WORKING_USER aria2c --conf=configuration.conf --dir="$(readlink -m "$DOWNLOAD_DIR")" --on-download-complete=sh/upload.sh --on-download-error=sh/error.sh --rpc-certificate="$(readlink -m "$CERTFILE")" --rpc-private-key="$(readlink -m "$KEYFILE")" --rpc-secure &
 		fi
 	fi
 
-	echo "Error: aria2c Daemon stopped!" | grep --color '.'
+	sleep 1
+
+	SUBPID="$(ps --ppid $! -o pid= | sed 's/^[ \t]*//;s/[ \t]*$//')"
+
+	echo "$SUBPID" > ./pid-aria2c
+
+	#echo "Error: aria2c Daemon stopped!" | grep --color '.'
 } &

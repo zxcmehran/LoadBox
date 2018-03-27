@@ -18,7 +18,13 @@
 	cd "$(dirname "$0")"/..
 
 	echo "Starting Web Server." | grep --color '.'
-	sudo -u $HTTP_WORKING_USER pyserver/SecureHTTPServer.py webui "$WEBPORT" "$WEBUSER:$WEBPASS" "$(readlink -e "$CERTFILE")" "$(readlink -e "$KEYFILE")"
+	sudo -u $HTTP_WORKING_USER pyserver/SecureHTTPServer.py webui "$WEBPORT" "$WEBUSER:$WEBPASS" "$(readlink -e "$CERTFILE")" "$(readlink -e "$KEYFILE")" &
 
-	echo "Error: Web Server stopped!" | grep --color '.'
+	sleep 1
+
+	SUBPID="$(ps --ppid $! -o pid= | sed 's/^[ \t]*//;s/[ \t]*$//')"
+
+	echo "$SUBPID" > ./pid-pyserver
+
+	#echo "Error: Web Server stopped!" | grep --color '.'
 } &
