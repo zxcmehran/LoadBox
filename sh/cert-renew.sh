@@ -85,7 +85,7 @@ fi
 echo "Restarting web and aria2c instances..."
 if [ -e "pid-pyserver" ]; then
 	PID_PY="$(<pid-pyserver)"
-	if [ "SecureHTTPServe" -eq "$(ps -p $PID_PY -o comm=)" ]; then
+	if [ "SecureHTTPServe" == "$(ps -p $PID_PY -o comm=)" ]; then
 		kill -9 $PID_PY >/dev/null 2>&1
 		. sh/start-pyserver.sh
 	fi
@@ -94,7 +94,7 @@ fi
 if [ -e "pid-aria2c" ]; then
 	PID_AR="$(<pid-aria2c)"
 
-	if [ "aria2c" -eq "$(ps -p $PID_AR -o comm=)" ]; then
+	if [ "aria2c" == "$(ps -p $PID_AR -o comm=)" ]; then
 		kill -9 $PID_AR >/dev/null 2>&1
 		. sh/start-aria2c.sh
 	fi
