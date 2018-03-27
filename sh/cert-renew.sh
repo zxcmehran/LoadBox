@@ -48,6 +48,8 @@ else
 		chmod a+x certbot-auto
 	fi
 	CERTCOM="./certbot-auto"
+
+	$CERTCOM --install-only
 fi
 
 echo "Trying to renew..."
