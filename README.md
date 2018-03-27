@@ -10,6 +10,8 @@ Its mainly designed to run on [Raspberry Pi](http://www.raspberrypi.org/), but i
 
 It has numerous features including Torrents support, Scheduling, Network Sync, Downloading to Network Target, Flash Disk Hotplugging, Protected Web Interface with HTTPS and Authentication and Download Resume support even in case of accidental power loss or disk unplug, unless the server denies.
 
+It also supports smartphone notifications using **IFTTT** recipes and HTTPS web interface powered by **Let's Encrypt** certificates.
+
 Read More at wiki: [What is LoadBox?](https://github.com/zxcmehran/LoadBox/wiki)
 
 ## Get Started
