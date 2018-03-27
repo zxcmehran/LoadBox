@@ -46,10 +46,9 @@ else
 	if ! [ -e "certbot-auto" ]; then
 	    wget https://dl.eff.org/certbot-auto
 		chmod a+x certbot-auto
+		./certbot-auto --install-only
 	fi
 	CERTCOM="./certbot-auto"
-
-	$CERTCOM --install-only
 fi
 
 echo "Trying to renew..."
